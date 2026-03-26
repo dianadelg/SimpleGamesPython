@@ -16,24 +16,33 @@ def printBoard(board):
 
 
 def takeTurn(currentTurn, turnsLeft):
-    # called for each turn taken
-    print(currentTurn + "s turn")
-    flag = True
-    
-    while flag == True:
-        row = -1
-        col = -1
-        while(row > 3 or row < 1):
+    while True:
+        # called for each turn taken
+        print(currentTurn + "s turn")
+
+        # validate row
+        while True:
             print("Please select a valid row number: 1, 2, or 3:")
             row = int(input())
-        while(col > 3 or col < 1):
-            print("Please select a valid col number: 1, 2, or 3:")
+            if 1 <= row <= 3:
+                break
+            else:
+                print("Invalid row. Please try again")
+
+        #validate col
+        while True:
+            print("Please select a valid column number: 1, 2, or 3:")
             col = int(input())
+            if 1 <= col <= 3:
+                break
+            else:
+                print("Invalid column. Please try again")     
+
         if(board[row-1][col-1]=="_"):
-            flag = False
             board[row-1][col-1] = currentTurn
+            break
         else:
-            print("Spot already played, pick a new one")
+            print("Spot already played, pick a new one.")
 
 
 def didTurnWin(board, currentTurn):
@@ -41,15 +50,15 @@ def didTurnWin(board, currentTurn):
     # can combine these but for now...
     
     # check horizontals
-    if (board[0][0] == currentTurn and board[0][1] == currentTurn and board [0][2] == currentTurn) or (board [1][0] == currentTurn and board[1][1] == currentTurn or board [1][2] == currentTurn) or (board [2][0] == currentTurn and board[2][1] == currentTurn and board[2][2] == currentTurn):
+    if (board[0][0] == currentTurn and board[0][1] == currentTurn and board[0][2] == currentTurn) or (board[1][0] == currentTurn and board[1][1] == currentTurn and board [1][2] == currentTurn) or (board[2][0] == currentTurn and board[2][1] == currentTurn and board[2][2] == currentTurn):
         print(currentTurn + " has won!")
         return True
     # check verticals
-    elif (board[0][0] == currentTurn and board[1][0] == currentTurn and board [2][0] == currentTurn) or (board [0][1] == currentTurn and board[1][1] == currentTurn or board [2][1] == currentTurn) or (board [0][2] == currentTurn and board[1][2] == currentTurn and board[2][2] == currentTurn):
+    elif (board[0][0] == currentTurn and board[1][0] == currentTurn and board[2][0] == currentTurn) or (board[0][1] == currentTurn and board[1][1] == currentTurn and board [2][1] == currentTurn) or (board[0][2] == currentTurn and board[1][2] == currentTurn and board[2][2] == currentTurn):
         print(currentTurn + " has won!")
         return True
     # check diagonals
-    elif (board[0][0] == currentTurn and board[1][1] == currentTurn and board [2][2] == currentTurn) or (board [2][0] == currentTurn and board[1][1] == currentTurn or board [0][2] == currentTurn):
+    elif (board[0][0] == currentTurn and board[1][1] == currentTurn and board[2][2] == currentTurn) or (board[2][0] == currentTurn and board[1][1] == currentTurn and board [0][2] == currentTurn):
         print(currentTurn + " has won!")
         return True
     else:
@@ -64,7 +73,7 @@ def main():
     turnsLeft = 9
     hasWon = False
     currentTurn = (generate_xo())
-    while(turnsLeft > 1):
+    while(turnsLeft > 0):
         printBoard(board)
         takeTurn(currentTurn, turnsLeft)
         turnsLeft=turnsLeft-1
@@ -72,6 +81,7 @@ def main():
         if(didTurnWin(board, currentTurn)):
             printBoard(board) # print to show win
             print("Game has been won by " + currentTurn)
+            break;
         else:
             choices = ['x', 'o']
             # switch to next player's turn based on current player
