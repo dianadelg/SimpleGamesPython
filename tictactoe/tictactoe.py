@@ -18,7 +18,6 @@ def printBoard(board):
 def takeTurn(currentTurn, turnsLeft):
     # called for each turn taken
     print(currentTurn + "s turn")
-    row = int(input())
     flag = True
     
     while flag == True:
@@ -30,9 +29,9 @@ def takeTurn(currentTurn, turnsLeft):
         while(col > 3 or col < 1):
             print("Please select a valid col number: 1, 2, or 3:")
             col = int(input())
-        if(board[row][col]!="_"):
+        if(board[row-1][col-1]=="_"):
             flag = False
-            board[row][col] = currentTurn
+            board[row-1][col-1] = currentTurn
         else:
             print("Spot already played, pick a new one")
 
@@ -76,10 +75,10 @@ def main():
         else:
             choices = ['x', 'o']
             # switch to next player's turn based on current player
-            if choices[0] != currentTurn:
-                nextPlayer = choices[1]
+            if choices[0] == currentTurn:
+                currentTurn = choices[1]
             else:
-                nextPlayer = choices[0]
+                currentTurn = choices[0]
 
 if __name__ == "__main__":
     sys.exit(main())
