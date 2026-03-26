@@ -1,9 +1,8 @@
 import sys
 import random
 
-choices = ['x', 'o']
-
 def generate_xo():
+    choices = ['x', 'o']
     # to be used to switch up who goes first
     return random.choice(choices)
 
@@ -75,6 +74,7 @@ def main():
             printBoard(board) # print to show win
             print("Game has been won by " + currentTurn)
         else:
+            choices = ['x', 'o']
             # switch to next player's turn based on current player
             if choices[0] != currentTurn:
                 nextPlayer = choices[1]
