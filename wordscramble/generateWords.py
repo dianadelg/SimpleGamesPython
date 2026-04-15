@@ -1,19 +1,15 @@
 import random
 
 def getWord():
-    words = ["apple", "banana", "cherry", "date", "blueberry", "kiwi", "orange"]
-    randomWord = random.choice(words)
-    print(randomWord)
-    return randomWord
+    with open('words.txt', 'r') as file:
+        words = file.read().split()
+        return random.choice(words)
 
 def getScrambledWord(word):
     # given a word, return it scrambled
     # convert string to list
     tempList = list(word)
     # randomize list
-    scrambledList = random.shuffle(tempList)
+    random.shuffle(tempList)
     # convert back to string, first convert chars to strings
-    stringList="-".join(map(str, scrambledList)) 
-    # now convert back to string
-    scrambledWord = ", ".join(stringList)
-    return scrambledWord
+    return "".join(map(str, tempList)) 
